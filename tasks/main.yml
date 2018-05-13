@@ -1,0 +1,14 @@
+---
+# note: current-user is a dependency, but it won't run
+# if you use a tag to select just the daemon tasks
+- name: Get info on current user
+  include_role: 
+    name: marvel-nccr.current-user
+  when: not current_user defined
+
+- import_tasks: prerequisites.yml
+  tags: jupyter_prerequisites
+- import_tasks: setup.yml
+  tags: jupyter_setup
+- import_tasks: apps.yml
+  tags: jupyter_apps

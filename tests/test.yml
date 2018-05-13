@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  roles:
+  - role: jupyter
+    vars:
+      cloud_platform: docker

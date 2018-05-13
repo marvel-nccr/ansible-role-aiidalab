@@ -1,0 +1,20 @@
+---
+allow_duplicates: no
+
+galaxy_info:
+  author: "MARVEL NCCR"
+  description: "An ansible role that installs the [Materials Cloud](www.materialscloud.org) jupyter environment."
+  license: MIT
+  min_ansible_version: 2.5
+  platforms:
+    - name: Ubuntu
+      versions:
+      - xenial
+  galaxy_tags:
+    - ubuntu
+    - application
+    - science
+
+dependencies:
+- role: marvel-nccr.current-user
+  version: master
