@@ -9,7 +9,7 @@
     src: ipython_config.py
     dest: "${HOME}/.ipython/profile_default"
 
-- name: create jupyter folders
+- name: create aiidalab folders
   become: True
   become_user: "{{ root_user }}"
   file:
@@ -17,31 +17,31 @@
     state: directory
     owner: "{{ current_user }}"
   with_items:
-    - "{{ jupyter_base_folder }}"
-    - "{{ jupyter_apps_folder }}"
+    - "{{ aiidalab_base_folder }}"
+    - "{{ aiidalab_apps_folder }}"
 
 - name: touch __init__.py for import
   become: True
   become_user: "{{ root_user }}"
   file:
-    path: "{{ jupyter_apps_folder }}/__init__.py"
+    path: "{{ aiidalab_apps_folder }}/__init__.py"
     state: touch
 
 - name: add launcher script
   template:
     src: start.sh
-    dest: "{{ jupyter_apps_folder }}"
+    dest: "{{ aiidalab_apps_folder }}"
     mode: 0753
 
 - name: update PYTHONPATH
   lineinfile:
     path: "${HOME}/.profile"
-    line: 'export PYTHONPATH=$PYTHONPATH:{{ jupyter_base_folder }}'
+    line: 'export PYTHONPATH=$PYTHONPATH:{{ aiidalab_base_folder }}'
 
-- name: create jupyter apps symlink
+- name: create aiidalab apps symlink
   file:
-    src: "{{ jupyter_apps_folder }}"
-    dest: "{{ jupyter_apps_symlink }}"
+    src: "{{ aiidalab_apps_folder }}"
+    dest: "{{ aiidalab_apps_symlink }}"
     state: link
 
 - name: create desktop shortcut
@@ -49,7 +49,7 @@
     src: apps.desktop
     dest: "${HOME}/Desktop"
     mode: 0753
-  when: not jupyter_headless
+  when: not aiidalab_headless
 
 # below: stuff needed for jupyterhub
 #- name: copy singleuser script
@@ -63,6 +63,6 @@
 #    {{ aiida_venv }}/bin/mc-jupyterhub-singleuser \
 #    --ip=0.0.0.0  \
 #    --port=8888   \
-#    --notebook-dir="{{ jupyter_apps_folder }}" \
+#    --notebook-dir="{{ aiidalab_apps_folder }}" \
 #    --NotebookApp.iopub_data_rate_limit=1000000000 \
 #    --NotebookApp.default_url="/apps/home/start.ipynb"

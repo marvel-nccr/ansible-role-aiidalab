@@ -7,8 +7,8 @@
   when: not current_user defined
 
 - import_tasks: prerequisites.yml
-  tags: jupyter_prerequisites
+  tags: aiidalab_prerequisites
 - import_tasks: setup.yml
-  tags: jupyter_setup
+  tags: aiidalab_setup
 - import_tasks: apps.yml
-  tags: jupyter_apps
+  tags: aiidalab_apps

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Jupyter Apps
-Comment=Launch AiiDA Jupyter Apps
-Exec={{ jupyter_apps_folder }}/start.sh
+Name=AiiDA Lab
+Comment=Launch AiiDA Lab environment
+Exec={{ aiidalab_apps_folder }}/start.sh
 Icon=utilities-terminal
 Type=Application

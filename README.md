@@ -1,12 +1,12 @@
-[![Build Status](https://travis-ci.org/marvel-nccr/ansible-role-jupyter.svg?branch=master)](https://travis-ci.org/marvel-nccr/ansible-role-jupyter)
+[![Build Status](https://travis-ci.org/marvel-nccr/ansible-role-aiidalab.svg?branch=master)](https://travis-ci.org/marvel-nccr/ansible-role-aiidalab)
 
-# Ansible Role: marvel-nccr.jupyter
+# Ansible Role: marvel-nccr.aiidalab
 
-An ansible role that installs the [Materials Cloud](www.materialscloud.org) jupyter environment.
+An ansible role that installs the [Materials Cloud](www.materialscloud.org) AiiDA Lab environment.
 
 ## Installation
 
-`ansible-galaxy install marvel-nccr.jupyter`
+`ansible-galaxy install marvel-nccr.aiidalab`
 
 ## Role Variables
 
@@ -16,7 +16,7 @@ See `defaults/main.yml`
 
   - hosts: servers
     roles:
-    - role: marvel-nccr.jupyter
+    - role: marvel-nccr.aiidalab
 
 ## License
 

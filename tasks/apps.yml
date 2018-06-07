@@ -2,6 +2,6 @@
 - name: install default apps
   git:
     repo: 'https://github.com/{{ item.repo }}'
-    dest: "{{ jupyter_apps_folder }}/{{ item.name }}"
+    dest: "{{ aiidalab_apps_folder }}/{{ item.name }}"
     force: True
-  with_items: "{{ jupyter_apps }}"
+  with_items: "{{ aiidalab_apps }}"

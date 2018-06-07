@@ -1,9 +1,10 @@
 # note: this folder is currently hardcoded in many apps
 # Would have to make this a variable
-jupyter_base_folder: "/project"
-jupyter_apps_folder: "{{ jupyter_base_folder}}/apps"
-jupyter_apps_symlink: "${HOME}/jupyter_apps"
-jupyter_apps:
+aiidalab_version: 18.06.0rc1
+aiidalab_base_folder: "/project"
+aiidalab_apps_folder: "{{ aiidalab_base_folder}}/apps"
+aiidalab_apps_symlink: "${HOME}/aiidalab"
+aiidalab_apps:
 - name: home
   repo: materialscloud-org/mc-home
 - name: aiida
@@ -12,4 +13,4 @@ jupyter_apps:
   repo: materialscloud-org/mc-cscs
   #- name: epfl
   #  repo: materialscloud-org/mc-epfl
-jupyter_headless: False
+aiidalab_headless: False

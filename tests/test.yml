@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
   roles:
-  - role: jupyter
+  - role: aiidalab
     vars:
       cloud_platform: docker
