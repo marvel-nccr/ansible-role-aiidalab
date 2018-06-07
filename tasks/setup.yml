@@ -55,12 +55,12 @@
 #- name: copy singleuser script
 #  copy:
 #    src: mc-jupyter-singleuser
-#    dest: "{{ aiida_venv }}/bin"
+#    dest: "{{ aiidalab_venv }}/bin"
 #    mode: u+x
 
 #- name: start jupyter notebook server
 #  shell: |
-#    {{ aiida_venv }}/bin/mc-jupyterhub-singleuser \
+#    {{ aiidalab_venv }}/bin/mc-jupyterhub-singleuser \
 #    --ip=0.0.0.0  \
 #    --port=8888   \
 #    --notebook-dir="{{ aiidalab_apps_folder }}" \

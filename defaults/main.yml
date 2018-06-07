@@ -4,6 +4,7 @@ aiidalab_version: 18.06.0rc1
 aiidalab_base_folder: "/project"
 aiidalab_apps_folder: "{{ aiidalab_base_folder}}/apps"
 aiidalab_apps_symlink: "${HOME}/aiidalab"
+aiidalab_venv: "${HOME}/.virtualenvs/aiida"
 aiidalab_apps:
 - name: home
   repo: materialscloud-org/mc-home
@@ -14,3 +15,5 @@ aiidalab_apps:
   #- name: epfl
   #  repo: materialscloud-org/mc-epfl
 aiidalab_headless: False
+
+root_user: root

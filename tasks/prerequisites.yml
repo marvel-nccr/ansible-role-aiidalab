@@ -1,18 +1,39 @@
 ---
+- name: Install pip
+  become: true
+  become_user: "{{ root_user }}"
+  apt:
+      name: "python-pip"
+      state: latest
+      #  with_items:
+      #      - aptitude
+      #      - python-pip
+      #      - python-dev
+      #  notify: apt clean
+
+- name: install virtualenv
+  become: true
+  become_user: "{{ root_user }}"
+  pip: 
+    name: virtualenv
+    state: latest
+
 - name: Install aiidalab prerequisites (python2)
   pip:
     name: git+https://github.com/materialscloud-org/aiidalab-metapkg@v{{ aiidalab_version }}
     extra_args: --process-dependency-links  
+    virtualenv: "{{ aiidalab_venv }}"
+
 
 # Need to replace HOME dir in aiida venv for tasks run as root user
 - name: activate ipython kernel
-  become: True
+  become: true
   become_user: "{{ root_user }}"
   shell: "{{ venv }}/bin/python -m ipykernel install"
   vars:
-    venv: "{{ aiida_venv |  regex_replace('\\$\\{HOME}', current_user_home) }}"
+    venv: "{{ aiidalab_venv |  regex_replace('\\$\\{HOME}', current_user_home) }}"
 
 - name: install jupyter extensions
-  shell: "{{ aiida_venv }}/bin/jupyter nbextension install --sys-prefix --py {{item}}"
+  shell: "{{ aiidalab_venv }}/bin/jupyter nbextension install --sys-prefix --py {{item}}"
   with_items:
       - fileupload
