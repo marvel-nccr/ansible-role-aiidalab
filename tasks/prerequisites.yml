@@ -5,11 +5,6 @@
   apt:
       name: "python-pip"
       state: latest
-      #  with_items:
-      #      - aptitude
-      #      - python-pip
-      #      - python-dev
-      #  notify: apt clean
 
 - name: install virtualenv
   become: true
@@ -24,16 +19,14 @@
     extra_args: --process-dependency-links  
     virtualenv: "{{ aiidalab_venv }}"
 
-
-# Need to replace HOME dir in aiida venv for tasks run as root user
 - name: activate ipython kernel
-  become: true
-  become_user: "{{ root_user }}"
-  shell: "{{ venv }}/bin/python -m ipykernel install"
-  vars:
-    venv: "{{ aiidalab_venv |  regex_replace('\\$\\{HOME}', current_user_home) }}"
+  shell: "{{ aiidalab_venv }}/bin/python -m ipykernel install --user"
+  args:
+    creates: "${HOME}/.local/share/jupyter/kernels/python2/kernel.json"
 
 - name: install jupyter extensions
   shell: "{{ aiidalab_venv }}/bin/jupyter nbextension install --sys-prefix --py {{item}}"
+  args:
+    creates: "{{ aiidalab_venv }}/share/jupyter/nbextensions/{{ item }}/extension.js"
   with_items:
       - fileupload

@@ -20,12 +20,10 @@
     - "{{ aiidalab_base_folder }}"
     - "{{ aiidalab_apps_folder }}"
 
-- name: touch __init__.py for import
-  become: True
-  become_user: "{{ root_user }}"
-  file:
-    path: "{{ aiidalab_apps_folder }}/__init__.py"
-    state: touch
+- name: add __init__.py for import
+  copy:
+    src: __init__.py
+    dest: "{{ aiidalab_apps_folder }}"
 
 - name: add launcher script
   template:
