@@ -4,7 +4,7 @@ sudo: required
 
 env:
   global:
-    - ansible_role: jupyter
+    - ansible_role: aiidalab
     - container_id: ansible-container
 
   matrix:
