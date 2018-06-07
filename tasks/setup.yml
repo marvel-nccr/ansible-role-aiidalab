@@ -1,4 +1,11 @@
 ---
+# note: current-user is a dependency, but it won't run
+# if you use a tag to select just the setup tasks
+- name: Get info on current user
+  include_role: 
+    name: marvel-nccr.current-user
+  when: not current_user defined
+
 - name: create ipython config folder
   file:
     path: "${HOME}/.ipython/profile_default"
@@ -42,11 +49,23 @@
     dest: "{{ aiidalab_apps_symlink }}"
     state: link
 
-- name: create desktop shortcut
-  template:
-    src: apps.desktop
-    dest: "${HOME}/Desktop"
-    mode: 0753
+- name: desktop icon
+  block:
+  - name: make icons directory
+    file:
+      dest: "${HOME}/.icons"
+      state: directory
+  
+  - name: copy aiida icon
+    copy:
+      src: aiida-logo-128.png
+      dest: "${HOME}/.icons/"
+  
+  - name: create desktop shortcut
+    template:
+      src: apps.desktop
+      dest: "${HOME}/Desktop"
+      mode: 0753
   when: not aiidalab_headless
 
 # below: stuff needed for jupyterhub
