@@ -58,7 +58,7 @@
   
   - name: copy aiida icon
     copy:
-      src: aiida-logo-128.png
+      src: aiidalab_gears_square_256.png
       dest: "${HOME}/.icons/"
   
   - name: create desktop shortcut
