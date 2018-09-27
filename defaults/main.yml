@@ -1,6 +1,6 @@
+aiidalab_version: 18.09.0
 # note: this folder is currently hardcoded in many apps
 # Would have to make this a variable
-aiidalab_version: 18.06.0rc1
 aiidalab_base_folder: "/project"
 aiidalab_apps_folder: "{{ aiidalab_base_folder}}/apps"
 aiidalab_apps_symlink: "${HOME}/aiidalab"

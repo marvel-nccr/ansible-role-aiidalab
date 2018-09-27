@@ -9,7 +9,7 @@ env:
 
   matrix:
     - docker_image: marvelnccr/ubuntu-docker-base
-      version: 1.0
+      version: 2.1
       ansible_user: ubuntu
       roles_dir: /etc/ansible/roles
 
