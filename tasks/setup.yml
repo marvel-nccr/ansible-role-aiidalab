@@ -4,7 +4,7 @@
 - name: Get info on current user
   include_role: 
     name: marvel-nccr.current-user
-  when: not current_user defined
+  when: current_user is undefined
 
 - name: create ipython config folder
   file:
