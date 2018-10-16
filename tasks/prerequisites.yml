@@ -3,20 +3,19 @@
   become: true
   become_user: "{{ root_user }}"
   apt:
-      name: "python-pip"
-      state: latest
+    name: "python-pip"
+    state: latest
 
 - name: install virtualenv
   become: true
   become_user: "{{ root_user }}"
-  pip: 
+  pip:
     name: virtualenv
     state: latest
 
 - name: Install aiidalab prerequisites (python2)
   pip:
     name: git+https://github.com/materialscloud-org/aiidalab-metapkg@v{{ aiidalab_version }}
-    extra_args: --process-dependency-links  
     virtualenv: "{{ aiidalab_venv }}"
 
 - name: activate ipython kernel
@@ -29,4 +28,4 @@
   args:
     creates: "{{ aiidalab_venv }}/share/jupyter/nbextensions/{{ item }}/extension.js"
   with_items:
-      - fileupload
+    - fileupload

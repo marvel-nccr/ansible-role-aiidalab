@@ -1,4 +1,5 @@
-aiidalab_version: 18.09.0
+---
+aiidalab_version: 18.10.1
 # note: this folder is currently hardcoded in many apps
 # Would have to make this a variable
 aiidalab_base_folder: "/project"
@@ -6,14 +7,14 @@ aiidalab_apps_folder: "{{ aiidalab_base_folder}}/apps"
 aiidalab_apps_symlink: "${HOME}/aiidalab"
 aiidalab_venv: "${HOME}/.virtualenvs/aiida"
 aiidalab_apps:
-- name: home
-  repo: materialscloud-org/mc-home
-- name: aiida
-  repo: ltalirz/mc-aiida
-- name: cscs
-  repo: materialscloud-org/mc-cscs
-  #- name: epfl
-  #  repo: materialscloud-org/mc-epfl
-aiidalab_headless: False
+  - name: home
+    repo: materialscloud-org/mc-home
+  - name: aiida
+    repo: ltalirz/mc-aiida
+  - name: cscs
+    repo: materialscloud-org/mc-cscs
+# - name: epfl
+#   repo: materialscloud-org/mc-epfl
+aiidalab_headless: false
 
 root_user: root

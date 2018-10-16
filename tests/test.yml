@@ -1,6 +1,0 @@
----
-- hosts: localhost
-  roles:
-  - role: aiidalab
-    vars:
-      cloud_platform: docker

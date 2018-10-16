@@ -2,7 +2,7 @@
 # note: current-user is a dependency, but it won't run
 # if you use a tag to select just the setup tasks
 - name: Get info on current user
-  include_role: 
+  include_role:
     name: marvel-nccr.current-user
   when: current_user is undefined
 
@@ -17,7 +17,7 @@
     dest: "${HOME}/.ipython/profile_default"
 
 - name: create aiidalab folders
-  become: True
+  become: true
   become_user: "{{ root_user }}"
   file:
     path: "{{ item }}"
@@ -51,35 +51,35 @@
 
 - name: desktop icon
   block:
-  - name: make icons directory
-    file:
-      dest: "${HOME}/.icons"
-      state: directory
-  
-  - name: copy aiida icon
-    copy:
-      src: aiidalab_gears_square_256.png
-      dest: "${HOME}/.icons/"
-  
-  - name: create desktop shortcut
-    template:
-      src: apps.desktop
-      dest: "${HOME}/Desktop"
-      mode: 0753
+    - name: make icons directory
+      file:
+        dest: "${HOME}/.icons"
+        state: directory
+
+    - name: copy aiida icon
+      copy:
+        src: aiidalab_gears_square_256.png
+        dest: "${HOME}/.icons/"
+
+    - name: create desktop shortcut
+      template:
+        src: apps.desktop
+        dest: "${HOME}/Desktop"
+        mode: 0753
   when: not aiidalab_headless
 
-# below: stuff needed for jupyterhub
-#- name: copy singleuser script
-#  copy:
-#    src: mc-jupyter-singleuser
-#    dest: "{{ aiidalab_venv }}/bin"
-#    mode: u+x
+# # below: stuff needed for jupyterhub
+# - name: copy singleuser script
+#   copy:
+#     src: mc-jupyter-singleuser
+#     dest: "{{ aiidalab_venv }}/bin"
+#     mode: u+x
 
-#- name: start jupyter notebook server
-#  shell: |
-#    {{ aiidalab_venv }}/bin/mc-jupyterhub-singleuser \
-#    --ip=0.0.0.0  \
-#    --port=8888   \
-#    --notebook-dir="{{ aiidalab_apps_folder }}" \
-#    --NotebookApp.iopub_data_rate_limit=1000000000 \
-#    --NotebookApp.default_url="/apps/home/start.ipynb"
+# - name: start jupyter notebook server
+#   shell: |
+#     {{ aiidalab_venv }}/bin/mc-jupyterhub-singleuser \
+#     --ip=0.0.0.0  \
+#     --port=8888   \
+#     --notebook-dir="{{ aiidalab_apps_folder }}" \
+#     --NotebookApp.iopub_data_rate_limit=1000000000 \
+#     --NotebookApp.default_url="/apps/home/start.ipynb"
