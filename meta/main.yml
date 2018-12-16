@@ -5,7 +5,7 @@ galaxy_info:
   author: "MARVEL NCCR"
   description: "An ansible role that installs the [Materials Cloud](www.materialscloud.org) AiiDA Lab environment."
   license: MIT
-  min_ansible_version: 2.5
+  min_ansible_version: 2.7
   platforms:
     - name: Ubuntu
       versions:

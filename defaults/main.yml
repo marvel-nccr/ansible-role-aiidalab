@@ -1,4 +1,5 @@
 ---
+# version of the aiidalab python metapackage
 aiidalab_version: 18.10.1
 # note: this folder is currently hardcoded in many apps
 # Would have to make this a variable
@@ -8,9 +9,13 @@ aiidalab_apps_symlink: "${HOME}/aiidalab"
 aiidalab_venv: "${HOME}/.virtualenvs/aiida"
 aiidalab_apps:
   - name: home
-    repo: materialscloud-org/mc-home
+    repo: aiidalab/aiidalab-home
   - name: aiida
-    repo: ltalirz/mc-aiida
+    repo: aiidalab/aiidalab-aiida
+  - name: aiida
+    repo: aiidalab/aiidalab-calculation-examples
+  - name: aiida-tutorials
+    repo: aiidateam/aiida_demos
   - name: cscs
     repo: materialscloud-org/mc-cscs
 # - name: epfl
