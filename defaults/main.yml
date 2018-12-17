@@ -12,12 +12,12 @@ aiidalab_apps:
     repo: aiidalab/aiidalab-home
   - name: aiida
     repo: aiidalab/aiidalab-aiida
-  - name: aiida
+  - name: calculation-examples
     repo: aiidalab/aiidalab-calculation-examples
   - name: aiida-tutorials
     repo: aiidateam/aiida_demos
   - name: cscs
-    repo: materialscloud-org/mc-cscs
+    repo: aiidalab/aiidalab-cscs
 # - name: epfl
 #   repo: materialscloud-org/mc-epfl
 aiidalab_headless: false
