@@ -1,9 +1,9 @@
 ---
-# note: current-user is a dependency, but it won't run
+# note: current_user is a dependency, but it won't run
 # if you use a tag to select just the setup tasks
 - name: Get info on current user
   include_role:
-    name: marvel-nccr.current-user
+    name: marvel-nccr.current_user
   when: current_user is undefined
 
 - name: create ipython config folder
