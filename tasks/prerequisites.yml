@@ -15,7 +15,8 @@
 
 - name: Install aiidalab prerequisites (python2)
   pip:
-    name: git+https://github.com/materialscloud-org/aiidalab-metapkg@v{{ aiidalab_version }}
+    name: aiidalab
+    version: "{{ aiidalab_version }}"
     virtualenv: "{{ aiidalab_venv }}"
 
 - name: activate ipython kernel
