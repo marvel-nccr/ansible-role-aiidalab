@@ -36,7 +36,7 @@
   template:
     src: start.sh
     dest: "{{ aiidalab_apps_folder }}"
-    mode: 0753
+    mode: "0753"
 
 - name: update PYTHONPATH
   lineinfile:
@@ -65,7 +65,7 @@
       template:
         src: apps.desktop
         dest: "${HOME}/Desktop"
-        mode: 0753
+        mode: "0753"
   when: not aiidalab_headless
 
 # # below: stuff needed for jupyterhub
