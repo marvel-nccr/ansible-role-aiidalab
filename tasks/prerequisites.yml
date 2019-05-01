@@ -11,10 +11,11 @@
   pip:
     name: virtualenv
 
-- name: Install aiidalab prerequisites (python2)
+- name: Install aiidalab python package
   pip:
-    name: aiidalab
-    version: "{{ aiidalab_version }}"
+    # name: aiidalab
+    # version: "{{ aiidalab_version }}"
+    name: git+https://github.com/aiidalab/aiidalab-metapkg@develop#egg=aiidalab
     virtualenv: "{{ aiidalab_venv }}"
 
 - name: activate ipython kernel
