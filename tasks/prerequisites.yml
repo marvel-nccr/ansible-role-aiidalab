@@ -23,7 +23,7 @@
   pip:
     # name: aiidalab
     # version: "{{ aiidalab_version }}"
-    name: 
+    name:
       - pip==18.1
     virtualenv: "{{ aiidalab_venv }}"
     virtualenv_site_packages: true
@@ -32,7 +32,7 @@
   pip:
     # name: aiidalab
     # version: "{{ aiidalab_version }}"
-    name: 
+    name:
       - git+https://github.com/aiidalab/aiidalab-metapkg@develop-py3#egg=aiidalab
     virtualenv: "{{ aiidalab_venv }}"
     # extra_args: --no-use-pep517
