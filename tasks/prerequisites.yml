@@ -11,6 +11,15 @@
   pip:
     name: virtualenv
 
+# Need to install numpy before aiida-core because otherwise the pymatgen
+# install is broken, see https://github.com/materialsproject/pymatgen/issues/1520
+- name: Install numpy & pip
+  pip:
+    name:
+      - pip==19.0.3
+      - numpy==1.16.4
+    virtualenv: "{{ aiidalab_venv }}"
+
 - name: Install aiidalab prerequisites (python2)
   pip:
     name: aiidalab
