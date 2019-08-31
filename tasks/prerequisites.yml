@@ -1,15 +1,17 @@
 ---
-- name: Install pip
+# Note: AiiDA lab has dropped python2 support for aiida 1.0
+- name: Install python3 pip
   become: true
   become_user: "{{ root_user }}"
   apt:
-    name: "python-pip"
+    name: "python3-pip"
 
 - name: install virtualenv
   become: true
   become_user: "{{ root_user }}"
   pip:
     name: virtualenv
+    executable: pip3
 
 - name: "Let virtualenvwrapper use the correct python version"
   lineinfile:
@@ -18,29 +20,17 @@
     line: "export VIRTUALENVWRAPPER_PYTHON={{ ansible_python_interpreter }}"
   when: ansible_python_interpreter is defined
 
-# Note: This can be joined with aiidalab once a new version is released
-- name: Install pip version for aiida-core 1.0.0b2
-  pip:
-    # name: aiidalab
-    # version: "{{ aiidalab_version }}"
-    name:
-      - pip==18.1
-    virtualenv: "{{ aiidalab_venv }}"
-    virtualenv_site_packages: true
-
 - name: Install aiidalab python package
   pip:
-    # name: aiidalab
-    # version: "{{ aiidalab_version }}"
-    name:
-      - git+https://github.com/aiidalab/aiidalab-metapkg@develop-py3#egg=aiidalab
+    name: aiidalab
+    version: "{{ aiidalab_version }}"
     virtualenv: "{{ aiidalab_venv }}"
     # extra_args: --no-use-pep517
 
 - name: activate ipython kernel
   shell: "{{ aiidalab_venv }}/bin/python -m ipykernel install --user"
   args:
-    creates: "${HOME}/.local/share/jupyter/kernels/python2/kernel.json"
+    creates: "${HOME}/.local/share/jupyter/kernels/python3/kernel.json"
 
 - name: install jupyter extensions
   shell: "{{ aiidalab_venv }}/bin/jupyter nbextension install --sys-prefix --py {{ item }}"
