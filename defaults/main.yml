@@ -1,6 +1,6 @@
 ---
 # version of the aiidalab python metapackage
-aiidalab_version: 19.08.0a1
+aiidalab_version: 19.11.0a2
 # note: this folder is currently hardcoded in many apps
 # Would have to make this a variable
 aiidalab_base_folder: "/project"
