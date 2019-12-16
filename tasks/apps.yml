@@ -4,5 +4,5 @@
     repo: 'https://github.com/{{ item.repo }}'
     dest: "{{ aiidalab_apps_folder }}/{{ item.name }}"
     force: true
-    version: master
+    version: "{{ item.version }}"
   with_items: "{{ aiidalab_apps }}"

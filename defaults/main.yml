@@ -10,14 +10,18 @@ aiidalab_venv: "${HOME}/.virtualenvs/aiida"
 aiidalab_apps:
   - name: home
     repo: aiidalab/aiidalab-home
-  - name: aiida
-    repo: aiidalab/aiidalab-aiida
+    version: origin/aiida_v1.0
   - name: calculation-examples
     repo: aiidalab/aiidalab-calculation-examples
-  - name: aiida-tutorials
-    repo: aiidateam/aiida_demos
-  - name: cscs
-    repo: aiidalab/aiidalab-cscs
+    version: origin/aiida-1.0
+
+# - name: aiida
+#   repo: aiidalab/aiidalab-aiida
+#   version: origin/aiida-1.0
+# - name: aiida-tutorials
+#   repo: aiidateam/aiida_demos
+# - name: cscs
+#   repo: aiidalab/aiidalab-cscs
 # - name: epfl
 #   repo: materialscloud-org/mc-epfl
 aiidalab_headless: false
