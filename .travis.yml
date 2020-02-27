@@ -10,8 +10,7 @@ env:
   global:
     - ANSIBLE_ROLE: aiidalab
 
-matrix:
-  include:
+  matrix:
     - name: Ubuntu-18.04
       env:
         - DOCKER_IMAGE: marvelnccr/ubuntu-docker-base
@@ -19,12 +18,12 @@ matrix:
         - ANSIBLE_USER: ubuntu
     - name: Ubuntu-16.04
       env:
-        - docker_image: marvelnccr/ubuntu-docker-base
-        - version: 1.1
-        - ansible_user: ubuntu
+        - DOCKER_IMAGE: marvelnccr/ubuntu-docker-base
+        - VERSION: 1.1
+        - ANSIBLE_USER: ubuntu
 
 install:
-  - pip install molecule docker
+  - pip install -r requirements.txt
 
 before_script:
   # Use actual Ansible Galaxy role name for the project directory.

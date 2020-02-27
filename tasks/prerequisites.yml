@@ -31,7 +31,7 @@
 - name: Install aiidalab prerequisites
   pip:
     name:
-      - numpy==1.16.4
+      - numpy==1.17.4
     virtualenv: "{{ aiidalab_venv }}"
   when: pymatgen_version.stdout
 
