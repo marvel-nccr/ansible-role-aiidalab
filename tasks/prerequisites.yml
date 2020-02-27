@@ -20,13 +20,20 @@
     line: "export VIRTUALENVWRAPPER_PYTHON={{ ansible_python_interpreter }}"
   when: ansible_python_interpreter is defined
 
+- name: Check whether pymatgen is already present (for idempotency)
+  shell: pip show pymatgen | grep Version | cut -d ' ' -f 2
+  ignore_errors: true
+  changed_when: false
+  register: pymatgen_version
+
 # Need to install numpy before aiida-core because otherwise the pymatgen
 # install is broken, see https://github.com/materialsproject/pymatgen/issues/1520
 - name: Install aiidalab prerequisites
   pip:
     name:
-      - numpy==1.16.4
+      - numpy==1.17.4
     virtualenv: "{{ aiidalab_venv }}"
+  when: pymatgen_version.stdout
 
 - name: Install aiidalab
   pip:
