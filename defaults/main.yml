@@ -11,8 +11,11 @@ aiidalab_apps:
   - name: home
     repo: aiidalab/aiidalab-home
     version: master
-  - name: calculation-examples
-    repo: aiidalab/aiidalab-calculation-examples
+  - name: widgets-base
+    repo: aiidalab/aiidalab-widgets-base
+    version: master
+  - name: aiidalab-qe
+    repo: aiidalab/aiidalab-qe
     version: master
 
 # - name: aiida
