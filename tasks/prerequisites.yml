@@ -41,6 +41,7 @@
     version: "{{ aiidalab_version }}"
     virtualenv: "{{ aiidalab_venv }}"
     # extra_args: --no-use-pep517
+  notify: reentry scan
 
 - name: activate ipython kernel
   shell: "{{ aiidalab_venv }}/bin/python -m ipykernel install --user"
