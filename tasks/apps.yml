@@ -5,4 +5,6 @@
     dest: "{{ aiidalab_apps_folder }}/{{ item.name }}"
     force: true
     version: "{{ item.version }}"
+    accept_hostkey: True
+    recursive: False
   with_items: "{{ aiidalab_apps }}"
