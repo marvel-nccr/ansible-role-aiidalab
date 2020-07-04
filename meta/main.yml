@@ -18,4 +18,4 @@ galaxy_info:
 
 dependencies:
   - role: marvel-nccr.current_user
-    version: master
+    version: 0.1.0
