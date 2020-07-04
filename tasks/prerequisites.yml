@@ -32,6 +32,7 @@
   pip:
     name:
       - numpy==1.17.4
+      - appmode==0.8.0
     virtualenv: "{{ aiidalab_venv }}"
   when: pymatgen_version.stdout
 
