@@ -10,3 +10,8 @@
 
   roles:
     - role: marvel-nccr.aiidalab
+
+  post_tasks:
+    - name: run pip check
+      command: "{{ aiidalab_venv }}/bin/pip check --no-color"
+      changed_when: False
