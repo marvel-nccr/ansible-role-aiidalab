@@ -4,7 +4,7 @@
   apt:
     name:
     - gcc        # for psutil
-    - gcc-c++    # for building pymatgen C extensions
+    - g++        # for building pymatgen C extensions
     - git
     - python3-pip
     - python3-dev
