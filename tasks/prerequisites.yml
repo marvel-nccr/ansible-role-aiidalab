@@ -4,8 +4,8 @@
   become_user: "{{ root_user }}"
   apt:
     name:
-     - git
-     - python3-pip
+    - git
+    - python3-pip
 
 - name: install virtualenv
   become: true
