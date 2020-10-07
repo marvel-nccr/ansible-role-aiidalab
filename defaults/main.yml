@@ -1,4 +1,3 @@
----
 # version of the aiidalab python metapackage
 aiidalab_version: 20.7.0b3
 # note: this folder is currently hardcoded in many apps
@@ -8,15 +7,15 @@ aiidalab_apps_folder: "{{ aiidalab_base_folder }}/apps"
 aiidalab_apps_symlink: "${HOME}/aiidalab"
 aiidalab_venv: "${HOME}/.virtualenvs/aiida"
 aiidalab_apps:
-  - name: home
-    repo: aiidalab/aiidalab-home
-    version: master
-  - name: widgets-base
-    repo: aiidalab/aiidalab-widgets-base
-    version: master
-  - name: aiidalab-qe
-    repo: aiidalab/aiidalab-qe
-    version: master
+- name: home
+  repo: aiidalab/aiidalab-home
+  version: master
+- name: widgets-base
+  repo: aiidalab/aiidalab-widgets-base
+  version: master
+- name: aiidalab-qe
+  repo: aiidalab/aiidalab-qe
+  version: master
 
 # - name: aiida
 #   repo: aiidalab/aiidalab-aiida
