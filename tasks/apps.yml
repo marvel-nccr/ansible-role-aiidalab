@@ -1,10 +1,9 @@
----
 - name: install default apps
   git:
     repo: 'https://github.com/{{ item.repo }}'
     dest: "{{ aiidalab_apps_folder }}/{{ item.name }}"
     force: true
     version: "{{ item.version }}"
-    accept_hostkey: True
-    recursive: False
+    accept_hostkey: true
+    recursive: false
   with_items: "{{ aiidalab_apps }}"

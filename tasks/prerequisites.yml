@@ -1,10 +1,20 @@
----
-# Note: AiiDA lab has dropped python2 support for aiida 1.0
-- name: Install python3 pip
+- name: Install apt requirements
   become: true
   become_user: "{{ root_user }}"
   apt:
-    name: "python3-pip"
+    name:
+    - git
+    - python3-pip
+    - python3-dev
+
+- name: Install apt requirements (20.04 only)
+  become: true
+  become_user: "{{ root_user }}"
+  apt:
+    name:
+    - gcc        # for psutil
+    - g++        # for building pymatgen C extensions
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'
 
 - name: install virtualenv
   become: true
@@ -31,14 +41,14 @@
 - name: Install numpy compliant with pymatgen
   pip:
     name:
-      - numpy==1.17.5
+    - numpy==1.17.5
     virtualenv: "{{ aiidalab_venv }}"
   when: pymatgen_version.stdout
 
 - name: Install appmode on virtual env
   pip:
     name:
-      - appmode==0.8.0
+    - appmode==0.8.0
     virtualenv: "{{ aiidalab_venv }}"
 
 - name: Install aiidalab
@@ -59,4 +69,4 @@
   args:
     creates: "{{ aiidalab_venv }}/share/jupyter/nbextensions/{{ item }}/extension.js"
   with_items:
-    - fileupload
+  - fileupload
