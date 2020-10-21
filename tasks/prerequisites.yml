@@ -3,11 +3,18 @@
   become_user: "{{ root_user }}"
   apt:
     name:
-    - gcc        # for psutil
-    - g++        # for building pymatgen C extensions
     - git
     - python3-pip
     - python3-dev
+
+- name: Install apt requirements (20.04 only)
+  become: true
+  become_user: "{{ root_user }}"
+  apt:
+    name:
+    - gcc        # for psutil
+    - g++        # for building pymatgen C extensions
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'
 
 - name: install virtualenv
   become: true
