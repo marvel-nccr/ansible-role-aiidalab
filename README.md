@@ -1,5 +1,5 @@
 [![CI](https://github.com/marvel-nccr/ansible-role-aiidalab/workflows/CI/badge.svg)](https://github.com/marvel-nccr/ansible-role-aiidalab/actions)
-[![Galaxy](https://img.shields.io/badge/Galaxy-marvel--nccr.aiidalab-blue)](https://galaxy.ansible.com/marvel-nccr/aiidalab)
+[![Ansible Role](https://img.shields.io/ansible/role/26169.svg)](https://galaxy.ansible.com/marvel-nccr/aiidalab)
 [![Release](https://img.shields.io/github/tag/marvel-nccr/ansible-role-aiidalab.svg)](https://github.com/marvel-nccr/ansible-role-aiidalab/releases)
 
 # Ansible Role: marvel-nccr.aiidalab
@@ -17,18 +17,23 @@ See `defaults/main.yml`
 ## Example Playbook
 
 ```yaml
-  - hosts: servers
-    roles:
-    - role: marvel-nccr.aiidalab
+- hosts: servers
+  roles:
+  - role: marvel-nccr.aiidalab
 ```
 
-## Tests
+## Development and testing
 
 This role uses [Molecule](https://molecule.readthedocs.io/en/latest/#) and [Docker](https://www.docker.com/) for tests.
 
 After installing [Docker](https://www.docker.com/):
 
 Clone the repository into a package named `marvel-nccr.aiidalab` (the folder must be named the same as the Ansible Galaxy name)
+
+```bash
+git clone https://github.com/marvel-nccr/ansible-role-aiidalab marvel-nccr.aiidalab
+cd marvel-nccr.aiidalab
+```
 
 Then run:
 
@@ -37,7 +42,12 @@ pip install -r requirements.txt  # Installs molecule
 molecule test  # runs tests
 ```
 
-or use tox (see `tox.ini`).
+or use tox (see `tox.ini`):
+
+```bash
+pip install tox
+tox
+```
 
 ## Code style
 
