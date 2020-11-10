@@ -1,0 +1,32 @@
+- name: Converge
+  hosts: all
+  become: true
+
+  pre_tasks:
+  - name: Update apt cache.
+    apt:
+      update_cache: yes
+      cache_valid_time: 600
+      name:
+      - quantum-espresso
+    when: ansible_os_family == 'Debian'
+
+  roles:
+  - role: marvel-nccr.aiida
+    vars:
+      aiida_components:
+      - computers
+      - plugins
+      - pseudopotentials
+      aiida_venv: "${HOME}/.virtualenvs/aiida"
+      aiida_computer_cpus: 1
+      aiida_plugin_versions:
+        aiida_quantumespresso: "3.2.0"
+      aiida_pseudopotentials:
+      - name: SSSP_1.1_efficiency
+        file: SSSP_efficiency_pseudos.aiida
+        url: https://archive.materialscloud.org/record/file?record_id=22&file_id=ea53f742-5f57-40b9-854b-9c34dc2bdbb3&filename=SSSP_efficiency_pseudos.aiida
+        home_page: https://materialscloud.org/sssp/
+        description: >-
+          Standard Solid State Pseudopotentials (efficiency)
+          for the PBE functional

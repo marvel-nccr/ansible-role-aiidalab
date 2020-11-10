@@ -1,5 +1,5 @@
 #!/bin/bash
-source "{{ aiidalab_venv }}/bin/activate"
+source "{{ aiidalab_client_venv }}/bin/activate"
 export PYTHONPATH=${PYTHONPATH}${PYTHONPATH:+:}{{ aiidalab_base_folder }}
 
 if jupyter notebook list | grep -q 'localhost'; then

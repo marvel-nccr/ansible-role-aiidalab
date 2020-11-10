@@ -1,21 +1,69 @@
 # version of the aiidalab python metapackage
-aiidalab_version: 20.7.0b3
+aiidalab_version: 20.11.0b1
 # note: this folder is currently hardcoded in many apps
 # Would have to make this a variable
 aiidalab_base_folder: "/project"
 aiidalab_apps_folder: "{{ aiidalab_base_folder }}/apps"
 aiidalab_apps_symlink: "${HOME}/aiidalab"
-aiidalab_venv: "${HOME}/.virtualenvs/aiida"
+aiidalab_client_venv: "${HOME}/.virtualenvs/aiidalab"
+aiidalab_server_venv: "${HOME}/.virtualenvs/aiida"
+
 aiidalab_apps:
 - name: home
   repo: aiidalab/aiidalab-home
   version: master
-- name: widgets-base
+  requirements_server:
+  - ipython
+  - jinja2
+  - aiidalab
+  - markdown
+  - ipywidgets
+  - traitlets
+  requirements_client: []
+- name: aiidalab-widgets-base
   repo: aiidalab/aiidalab-widgets-base
   version: master
-- name: aiidalab-qe
+  requirements_server:
+  - aiida-core>=1.0.0,<2.0.0
+  - aiidalab-widgets-base
+  - ase
+  - bokeh
+  - fileupload
+  - ipywidgets
+  - more-itertools
+  - nglview
+  - numpy
+  # - openbabel  # optional for SMILES but install failining (swig failied)
+  - optimade-client
+  - pandas
+  # - scikit-learn  # this is in the setup.json, but I don't see it used
+  requirements_client:
+  # note none of these are actually listed in the package
+  # but it includes the same structure viewer as quantum-espresso
+  - bqplot
+  - ipympl # jupyter-matplotlib
+  - nglview
+  - pythreejs  # jupyter-threejs
+  - fileupload
+  - widget-periodictable
+- name: quantum-espresso
   repo: aiidalab/aiidalab-qe
   version: master
+  requirements_server:
+  - aiida-quantumespresso
+  - aiidalab-widgets-base
+  - ase
+  - nglview # is this really needed, its imported in aiidalab/quantum-espresso/structures.py but not actually used?
+  - ipython
+  - ipywidgets
+  - traitlets
+  requirements_client:
+  - bqplot
+  - ipympl # jupyter-matplotlib
+  - nglview
+  - pythreejs  # jupyter-threejs
+  - fileupload
+  - widget-periodictable
 
 # - name: aiida
 #   repo: aiidalab/aiidalab-aiida

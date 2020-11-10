@@ -4,8 +4,10 @@
   apt:
     name:
     - git
-    - python3-pip
     - python3-dev
+    - python3-pip
+    - python3-wheel
+    - povray # required? (in aiidalab docker)
 
 - name: Install apt requirements (20.04 only)
   become: true
@@ -30,43 +32,31 @@
     line: "export VIRTUALENVWRAPPER_PYTHON={{ ansible_python_interpreter }}"
   when: ansible_python_interpreter is defined
 
-- name: Check whether pymatgen is already present (for idempotency)
-  shell: pip show pymatgen | grep Version | cut -d ' ' -f 2
-  ignore_errors: true
-  changed_when: false
-  register: pymatgen_version
-
-# Need to install numpy before aiida-core because otherwise the pymatgen
-# install is broken, see https://github.com/materialsproject/pymatgen/issues/1520
-- name: Install numpy compliant with pymatgen
-  pip:
-    name:
-    - numpy==1.17.5
-    virtualenv: "{{ aiidalab_venv }}"
-  when: pymatgen_version.stdout
-
-- name: Install appmode on virtual env
+- name: Create the client-side virtual env
   pip:
     name:
     - appmode==0.8.0
-    virtualenv: "{{ aiidalab_venv }}"
+    - jupyterlab==2.2.8
+    - notebook==6.1.4
+    virtualenv: "{{ aiidalab_client_venv }}"
 
-- name: Install aiidalab
+- name: Create the server-side virtual env
   pip:
-    name: aiidalab
-    version: "{{ aiidalab_version }}"
-    virtualenv: "{{ aiidalab_venv }}"
-    # extra_args: --no-use-pep517
-  notify: reentry scan
+    name:
+    - "aiidalab=={{ aiidalab_version }}"
+    - ipykernel
+    virtualenv: "{{ aiidalab_server_venv }}"
 
 - name: activate ipython kernel
-  shell: "{{ aiidalab_venv }}/bin/python -m ipykernel install --user"
+  shell: "{{ aiidalab_server_venv }}/bin/python -m ipykernel install --user"
   args:
     creates: "${HOME}/.local/share/jupyter/kernels/python3/kernel.json"
 
-- name: install jupyter extensions
-  shell: "{{ aiidalab_venv }}/bin/jupyter nbextension install --sys-prefix --py {{ item }}"
+- name: enable app mode nbextension
+  shell: "{{ aiidalab_client_venv }}/bin/jupyter nbextension install --sys-prefix --py appmode"
   args:
-    creates: "{{ aiidalab_venv }}/share/jupyter/nbextensions/{{ item }}/extension.js"
-  with_items:
-  - fileupload
+    creates: "{{ aiidalab_client_venv }}/share/jupyter/nbextensions/appmode/extension.js"
+
+- name: enable app mode serverextension
+  shell: "{{ aiidalab_client_venv }}/bin/jupyter serverextension install --sys-prefix --py appmode"
+  changed_when: false

@@ -2,15 +2,10 @@
   hosts: all
   become: true
 
-  pre_tasks:
-  - name: Update apt cache.
-    apt: update_cache=yes cache_valid_time=600
-    when: ansible_os_family == 'Debian'
-
   roles:
   - role: marvel-nccr.aiidalab
 
-  post_tasks:
-  - name: run pip check
-    command: "{{ aiidalab_venv }}/bin/pip check --no-color"
-    changed_when: false
+  # post_tasks:
+  # - name: run pip check
+  #   command: "{{ aiidalab_server_venv }}/bin/pip check --no-color"
+  #   changed_when: false

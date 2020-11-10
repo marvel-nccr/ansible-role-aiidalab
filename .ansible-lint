@@ -3,4 +3,5 @@
 warn_list:
   - '106'  # Role name {} does not match ``^[a-z][a-z0-9_]+$`` pattern
   - '208'  # File permissions unset or incorrect
+  - '301'  # Commands should not change things if nothing needs doing 
   - '305'  # Use shell only when shell functionality is required
