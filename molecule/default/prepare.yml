@@ -32,7 +32,7 @@
           codes_var: "quantum_espresso_executables"
       quantum_espresso_executables:
       - name: pw
-        folder: /usr/bin"
+        folder: "/usr/bin"
         executable: "pw.x"
         plugin: quantumespresso.pw
       aiida_pseudopotentials:

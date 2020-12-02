@@ -7,7 +7,11 @@
     vars:
       vm_headless: false
 
-  # post_tasks:
-  # - name: run pip check
-  #   command: "{{ aiidalab_server_venv }}/bin/pip check --no-color"
-  #   changed_when: false
+  post_tasks:
+  - name: "run pip check for: {{ aiidalab_aiida_venv }}"
+    command: "{{ aiidalab_aiida_venv }}/bin/pip check --no-color"
+    changed_when: false
+
+  - name: "run pip check for: {{ aiidalab_jupyter_venv }}"
+    command: "{{ aiidalab_jupyter_venv }}/bin/pip check --no-color"
+    changed_when: false
