@@ -2,6 +2,6 @@
 Encoding=UTF-8
 Name=AiiDA Lab
 Comment=Launch AiiDA Lab environment
-Exec={{ aiidalab_apps_folder }}/start.sh
+Exec=/usr/local/bin/aiida-aiidalab
 Icon=aiidalab_gears_square_256.png
 Type=Application

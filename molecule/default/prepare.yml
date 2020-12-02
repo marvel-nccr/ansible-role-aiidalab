@@ -6,22 +6,35 @@
   - name: Update apt cache.
     apt:
       update_cache: yes
-      cache_valid_time: 600
+      cache_valid_time: 3600
       name:
       - quantum-espresso
-    when: ansible_os_family == 'Debian'
+    when: ansible_os_family|lower == 'debian'
 
-  roles:
-  - role: marvel-nccr.aiida
+  tasks:
+  - name: Install nodejs 12.x
+    include_role:
+      name: geerlingguy.nodejs
     vars:
-      aiida_components:
-      - computers
-      - plugins
-      - pseudopotentials
-      aiida_venv: "${HOME}/.virtualenvs/aiida"
-      aiida_computer_cpus: 1
-      aiida_plugin_versions:
-        aiida_quantumespresso: "3.2.0"
+      nodejs_version: 12.x
+      nodejs_install_npm_user: root
+
+  - name: Install aiida
+    include_role:
+      name: marvel-nccr.aiida
+    vars:
+      # aiida_venv: "${HOME}/.virtualenvs/aiida"
+      # aiida_computer_cpus: 1
+      aiida_plugins:
+        aiida-quantumespresso:
+          version: "3.2.0"
+          code_prefix: qe
+          codes_var: "quantum_espresso_executables"
+      quantum_espresso_executables:
+      - name: pw
+        folder: /usr/bin"
+        executable: "pw.x"
+        plugin: quantumespresso.pw
       aiida_pseudopotentials:
       - name: SSSP_1.1_efficiency
         file: SSSP_efficiency_pseudos.aiida

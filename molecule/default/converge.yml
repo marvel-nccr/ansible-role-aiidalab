@@ -4,6 +4,8 @@
 
   roles:
   - role: marvel-nccr.aiidalab
+    vars:
+      vm_headless: false
 
   # post_tasks:
   # - name: run pip check

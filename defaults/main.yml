@@ -1,29 +1,35 @@
-# version of the aiidalab python metapackage
-aiidalab_version: 20.11.0b1
-# note: this folder is currently hardcoded in many apps
-# Would have to make this a variable
-aiidalab_base_folder: "/project"
+aiidalab_base_folder: "/project"  # note: this folder is currently hardcoded in many apps
 aiidalab_apps_folder: "{{ aiidalab_base_folder }}/apps"
 aiidalab_apps_symlink: "${HOME}/aiidalab"
-aiidalab_client_venv: "${HOME}/.virtualenvs/aiidalab"
-aiidalab_server_venv: "${HOME}/.virtualenvs/aiida"
 
+# these environments are created by the aiida role
+# and so these variables should be set the same as for that role
+aiidalab_aiida_venv: "${HOME}/.virtualenvs/aiida"
+aiidalab_aiida_venv_constraints: "${HOME}/.local/share/aiida/constraints.txt"
+aiidalab_jupyter_venv: "${HOME}/.virtualenvs/jupyter"
+
+aiidalab_jupyter_port: 8888
+
+# TODO ideally we should only need to define the repo and tag
+# then could extract the name and requirements from it in a consistent way
 aiidalab_apps:
 - name: home
-  repo: aiidalab/aiidalab-home
-  version: master
-  requirements_server:
+  github_repo: aiidalab/aiidalab-home
+  version: v20.11.0
+  requirements_aiida:
+  # https://github.com/aiidalab/aiidalab-home/issues/51
+  - aiidalab==20.11.0b1
   - ipython
-  - jinja2
-  - aiidalab
-  - markdown
   - ipywidgets
+  - jinja2
+  - markdown
   - traitlets
-  requirements_client: []
+
 - name: aiidalab-widgets-base
-  repo: aiidalab/aiidalab-widgets-base
-  version: master
-  requirements_server:
+  github_repo: aiidalab/aiidalab-widgets-base
+  version: v1.0.0b14
+  requirements_aiida:
+  # https://github.com/aiidalab/aiidalab-widgets-base/blob/v1.0.0b14/metadata.json
   - aiida-core>=1.0.0,<2.0.0
   - aiidalab-widgets-base
   - ase
@@ -33,11 +39,13 @@ aiidalab_apps:
   - more-itertools
   - nglview
   - numpy
-  # - openbabel  # optional for SMILES but install failining (swig failied)
   - optimade-client
   - pandas
-  # - scikit-learn  # this is in the setup.json, but I don't see it used
-  requirements_client:
+  - scikit-learn
+  # these are optional for SMILES, but they cannot be installed via pip
+  # - openbabel
+  # - rdkit
+  requirements_jupyter:
   # note none of these are actually listed in the package
   # but it includes the same structure viewer as quantum-espresso
   - bqplot
@@ -46,34 +54,26 @@ aiidalab_apps:
   - pythreejs  # jupyter-threejs
   - fileupload
   - widget-periodictable
-- name: quantum-espresso
-  repo: aiidalab/aiidalab-qe
-  version: master
-  requirements_server:
-  - aiida-quantumespresso
-  - aiidalab-widgets-base
-  - ase
-  - nglview # is this really needed, its imported in aiidalab/quantum-espresso/structures.py but not actually used?
-  - ipython
-  - ipywidgets
-  - traitlets
-  requirements_client:
-  - bqplot
-  - ipympl # jupyter-matplotlib
-  - nglview
-  - pythreejs  # jupyter-threejs
-  - fileupload
-  - widget-periodictable
-
-# - name: aiida
-#   repo: aiidalab/aiidalab-aiida
-#   version: origin/aiida-1.0
-# - name: aiida-tutorials
-#   repo: aiidateam/aiida_demos
-# - name: cscs
-#   repo: aiidalab/aiidalab-cscs
-# - name: epfl
-#   repo: materialscloud-org/mc-epfl
-aiidalab_headless: false
+# TODO this works but leaving commented until https://github.com/aiidalab/aiidalab-qe/pull/34
+# - name: quantum-espresso
+#   github_repo: aiidalab/aiidalab-qe
+#   version: v20.11.2
+#   requirements_aiida:
+#   - aiida-quantumespresso
+#   - aiidalab-widgets-base
+#   - ase
+#   - nglview # is this really needed, its imported in aiidalab/quantum-espresso/structures.py but not actually used?
+#   - ipython
+#   - ipywidgets
+#   - traitlets
+#   requirements_jupyter:
+#   # https://github.com/aiidalab/aiidalab-qe/blob/master/jupyter-config/nbconfig/notebook.d/aiidalab.json
+#   - bqplot
+#   - ipympl  # jupyter-matplotlib
+#   - nglview
+#   - pythreejs  # jupyter-threejs
+#   - fileupload
+#   - widget-periodictable
 
 root_user: root
+# add vm_headless=false to add a destop shortcut to start jupyter lab

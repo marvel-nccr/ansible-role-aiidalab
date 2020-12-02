@@ -1,4 +1,6 @@
 - src: marvel-nccr.current_user
   version: v0.1.0
+- src: geerlingguy.nodejs
+  version: 5.1.1
 - src: marvel-nccr.aiida
-  version: v2.5.0
+  version: v3.2.1

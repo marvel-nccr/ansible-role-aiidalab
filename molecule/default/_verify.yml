@@ -1,3 +1,4 @@
+# TODO add selenium tests
 - name: Selenium prerequisites
   hosts: all
 

@@ -1,25 +1,25 @@
 - name: "clone app: {{ app.name }}"
   git:
-    repo: 'https://github.com/{{ app.repo }}'
+    repo: 'https://github.com/{{ app.github_repo }}'
     dest: "{{ aiidalab_apps_folder }}/{{ app.name }}"
     force: true
     version: "{{ app.version }}"
     accept_hostkey: true
     recursive: false
 
-- name: install server-side dependencies
+- name: install server-side (aiida) dependencies
   pip:
-    name: "{{ app.requirements_server }}"
-    virtualenv: "{{ aiidalab_server_venv }}"
+    name: "{{ app.requirements_aiida }}"
+    virtualenv: "{{ aiidalab_aiida_venv }}"
+    extra_args: "-c {{ aiidalab_aiida_venv_constraints }} --use-feature=2020-resolver"
 
-- name: install client-side dependencies
+- name: install client-side (jupyter) dependencies
+  when: app.requirements_jupyter is defined
   pip:
-    name: "{{ app.requirements_client }}"
-    virtualenv: "{{ aiidalab_client_venv }}"
+    name: "{{ app.requirements_jupyter }}"
+    virtualenv: "{{ aiidalab_jupyter_venv }}"
 
-# - name: install jupyter extensions
-#   shell: "{{ aiidalab_venv }}/bin/jupyter nbextension install --sys-prefix --py {{ item }}"
-#   args:
-#     creates: "{{ aiidalab_venv }}/share/jupyter/nbextensions/{{ item }}/extension.js"
-#   with_items:
-#   - fileupload
+# NOTE: It appears that apps will/should automatically load
+# any jupyter extensions defined in the apps
+# e.g. https://github.com/aiidalab/aiidalab-qe/blob/master/jupyter-config/nbconfig/notebook.d/aiidalab.json
+# so that is not required here

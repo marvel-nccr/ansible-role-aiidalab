@@ -1,0 +1,33 @@
+- name: Get info on current user
+  include_role:
+    name: marvel-nccr.current_user
+  when: current_user is undefined
+
+- name: create aiidalab folders
+  become: true
+  become_user: "{{ root_user }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ current_user }}"
+  with_items:
+  - "{{ aiidalab_base_folder }}"
+  - "{{ aiidalab_apps_folder }}"
+
+# TODO also add to bashrc?
+- name: Add aiidalab folder to PYTHONPATH
+  lineinfile:
+    path: "${HOME}/.profile"
+    line: 'export PYTHONPATH=$PYTHONPATH:{{ aiidalab_base_folder }}'
+    create: true
+
+- name: Add __init__.py for apps folder
+  copy:
+    src: __init__.py
+    dest: "{{ aiidalab_apps_folder }}"
+
+- name: "Symlink apps folder to {{ aiidalab_apps_symlink }}"
+  file:
+    src: "{{ aiidalab_apps_folder }}"
+    dest: "{{ aiidalab_apps_symlink }}"
+    state: link
