@@ -4,7 +4,10 @@
 
 # Ansible Role: marvel-nccr.aiidalab
 
-An ansible role that installs the [Materials Cloud](www.materialscloud.org) AiiDA Lab environment.
+An ansible role that installs the [Materials Cloud](www.materialscloud.org) AiiDA Lab components.
+
+This role is dependent on the https://github.com/marvel-nccr/ansible-role-aiida, for installing the initial aiida and jupyter environments,
+and also nodejs should be installed independently.
 
 ## Installation
 
@@ -18,8 +21,27 @@ See `defaults/main.yml`
 
 ```yaml
 - hosts: servers
-  roles:
-  - role: marvel-nccr.aiidalab
+  vars:
+    aiida_venv: "${HOME}/.virtualenvs/aiida"
+    aiida_venv_constraints: "${HOME}/.local/share/aiida/constraints.txt"
+    aiida_jupyter_venv: "${HOME}/.virtualenvs/aiida"
+  tasks:
+  - name: Install nodejs 12.x
+    include_role:
+      name: geerlingguy.nodejs
+    vars:
+      nodejs_version: 12.x
+      nodejs_install_npm_user: root
+  - name: Install aiida
+    include_role:
+      name: marvel-nccr.aiida
+  - name: Install AiiDA Lab
+    include_role:
+      name: marvel-nccr.aiidalab
+    vars:
+      aiidalab_aiida_venv: "{{ aiidalab_aiida_venv }}"
+      aiidalab_aiida_venv_constraints: "{{ aiida_venv_constraints }}"
+      aiidalab_jupyter_venv: "{{ aiida_jupyter_venv }}"
 ```
 
 ## Development and testing

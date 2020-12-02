@@ -1,8 +1,42 @@
-- import_tasks: prerequisites.yml
-  tags: aiidalab_prerequisites
+- name: Install apt requirements
+  become: true
+  become_user: "{{ root_user }}"
+  apt:
+    name:
+    - git
+    - povray # TODO this should probably be moved to a `requirements_apt` section on an app
 
-- import_tasks: setup.yml
-  tags: aiidalab_setup
+- name: Create required folders
+  include_tasks: folders.yml
 
-- import_tasks: apps.yml
-  tags: aiidalab_apps
+- name: "Install appmode in {{ aiidalab_jupyter_venv }}"
+  pip:
+    virtualenv: "{{ aiidalab_jupyter_venv }}"
+    name:
+    - appmode~=0.8.0
+
+- name: Enable app mode nbextension
+  shell: "{{ aiidalab_jupyter_venv }}/bin/jupyter nbextension enable --sys-prefix --py appmode"
+  args:
+    creates: "{{ aiidalab_jupyter_venv }}/share/jupyter/nbextensions/appmode/main.js"
+
+- name: Enable app mode serverextension
+  shell: "{{ aiidalab_jupyter_venv }}/bin/jupyter serverextension enable --sys-prefix --py appmode"
+  changed_when: false
+
+# TODO maybe merge python dependencies from all apps first, then install at the same time
+- name: Install AiiDA Lab apps
+  include_tasks: apps.yml
+  vars:
+    app: "{{ item }}"
+  loop: "{{ aiidalab_apps|flatten(levels=1) }}"
+
+- name: Add AiiDA Lab launcher script
+  template:
+    src: aiidalab_launch.sh
+    dest: "/usr/local/bin/aiida-aiidalab"
+    mode: "0755"
+
+- name: Add AiiDA Lab desktop shortcut
+  when: vm_headless is defined and not vm_headless
+  include_tasks: desktop.yml
