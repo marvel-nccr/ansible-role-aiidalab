@@ -32,6 +32,8 @@
   loop: "{{ aiidalab_apps|flatten(levels=1) }}"
 
 - name: Add AiiDA Lab launcher script
+  become: true
+  become_user: "{{ root_user }}"
   template:
     src: aiidalab_launch.sh
     dest: "/usr/local/bin/aiida-aiidalab"
