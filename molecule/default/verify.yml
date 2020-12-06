@@ -2,6 +2,9 @@
 - name: Selenium prerequisites
   hosts: all
 
+  # TODO maybe use https://github.com/infOpen/ansible-role-xvfb/
+  # and see http://coryklein.com/ansible/2015/10/09/using-ansible-to-install-google-chrome.html
+
   vars:
   - root_user: root
     # Name of virtual display in which to run browser (via xvfb).
@@ -34,20 +37,6 @@
     service:
       name: xvfb
       state: reloaded
-
-  - name: install virtualenv
-    become: true
-    become_user: "{{ root_user }}"
-    pip:
-      name: virtualenv
-      executable: pip3
-
-  - name: "Let virtualenvwrapper use the correct python version"
-    lineinfile:
-      path: "${HOME}/.bashrc"
-      regex: "export VIRTUALENVWRAPPER_PYTHON=.*"
-      line: "export VIRTUALENVWRAPPER_PYTHON={{ ansible_python_interpreter }}"
-    when: ansible_python_interpreter is defined
 
   - name: Install selenium & pytest
     pip:
