@@ -8,5 +8,5 @@ if jupyter notebook list | grep -q localhost:${1:-{{ aiidalab_jupyter_port }}}; 
 else
     jupyter notebook --notebook-dir="{{ aiidalab_base_folder }}" \
       --NotebookApp.default_url="/apps/apps/home/start.ipynb" \
-      --port=${1:-{{ aiidalab_jupyter_port }}}
+      --port=${1:-{{ aiidalab_jupyter_port }}} {{ aiidalab_jupyter_extra_args | default('') }}
 fi
