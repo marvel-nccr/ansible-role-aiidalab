@@ -24,12 +24,13 @@
   shell: "{{ aiidalab_jupyter_venv }}/bin/jupyter serverextension enable --sys-prefix --py appmode"
   changed_when: false
 
-# TODO maybe merge python dependencies from all apps first, then install at the same time
 - name: Install AiiDA Lab apps
   include_tasks: apps.yml
-  vars:
-    app: "{{ item }}"
-  loop: "{{ aiidalab_apps|flatten(levels=1) }}"
+
+- name: Pre-build Jupyter Lab Assets  # otherwise the user will be asked to build them
+  # minimize false improves the CPU and memory usage
+  shell: "{{ aiidalab_jupyter_venv }}/bin/jupyter lab build --minimize=False"
+  changed_when: false
 
 - name: Add AiiDA Lab launcher script
   become: true
