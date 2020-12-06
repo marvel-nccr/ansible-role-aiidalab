@@ -15,10 +15,10 @@
     name:
     - appmode~=0.8.0
 
+# tip: if this is not called then the launcher will hang on the loading (cogs) screen
 - name: Enable app mode nbextension
   shell: "{{ aiidalab_jupyter_venv }}/bin/jupyter nbextension enable --sys-prefix --py appmode"
-  args:
-    creates: "{{ aiidalab_jupyter_venv }}/share/jupyter/nbextensions/appmode/main.js"
+  changed_when: false
 
 - name: Enable app mode serverextension
   shell: "{{ aiidalab_jupyter_venv }}/bin/jupyter serverextension enable --sys-prefix --py appmode"
