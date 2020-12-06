@@ -6,7 +6,9 @@
 
 An ansible role that installs the [Materials Cloud](www.materialscloud.org) AiiDA Lab components.
 
-This role is dependent on the https://github.com/marvel-nccr/ansible-role-aiida, for installing the initial aiida and jupyter environments,
+The AiiDA Lab server can be launched either by running the `/usr/local/bin/aiida-aiidalab` executable in the terminal, or double-clicking on the AiiDa Lab desktop short-cut (when installed on a non-headless VM).
+
+This role is dependent on the [marvel-nccr.aiida](https://github.com/marvel-nccr/ansible-role-aiida) role, for installing the initial aiida and jupyter environments,
 and also nodejs should be installed independently.
 
 ## Installation
@@ -69,6 +71,26 @@ or use tox (see `tox.ini`):
 ```bash
 pip install tox
 tox
+```
+
+To manually test the created docker container, first run:
+
+```bash
+tox converge
+```
+
+This will run the ansible role, leaving the container running.
+The recommended way to interact with the container is then to use the [VS Code Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker).
+Using this you can then attach a visual studio code instance:
+
+![VS Code Docker extension](./vscode.png)
+
+Inside the container run `aiida-jupyterlab` or `aiida-aiidalab`, and you will be able to access the supplied URLs from your local browser.
+
+When you are finished with the container, destroy the container with:
+
+```bash
+tox destroy
 ```
 
 ## Code style
