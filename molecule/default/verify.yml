@@ -1,0 +1,82 @@
+# TODO add selenium tests
+- name: Selenium prerequisites
+  hosts: all
+
+  # TODO maybe use https://github.com/infOpen/ansible-role-xvfb/
+  # and see http://coryklein.com/ansible/2015/10/09/using-ansible-to-install-google-chrome.html
+
+  vars:
+    gecko_version: "v0.28.0"
+    gecko_path: "/tmp/geckodriver"
+    python_base_version: "3.7"
+    selenium_venv: "${HOME}/.virtualenvs/selenium"
+    aiidalab_jupyter_port: 8888
+
+  tasks:
+  - name: install apt packages
+    become: true
+    apt:
+      name:
+      - firefox
+      - netcat
+      - xvfb
+      - wget
+
+  - name: Get geckodriver source
+    get_url:
+      url: "https://github.com/mozilla/geckodriver/releases/download/{{ gecko_version }}/geckodriver-{{ gecko_version }}-linux64.tar.gz"
+      dest: "{{ gecko_path }}.tar.gz"
+    register: gecko_download
+    until: not gecko_download.failed
+    retries: 3
+    delay: 10
+
+  - name: Extract gecko source
+    unarchive:
+      src: "{{ gecko_path }}.tar.gz"
+      dest: "{{ gecko_path | dirname }}"
+      mode: 0755
+      remote_src: true
+
+  - name: install xvfb daemon script
+    become: true
+    copy:
+      src: xvfb.service
+      dest: /etc/systemd/system/xvfb.service
+      mode: 0755
+
+  - name: start xvfb service
+    become: true
+    systemd:
+      name: xvfb
+      enabled: true
+      state: started
+
+  - name: Install selenium & pytest
+    pip:
+      name:
+      - selenium==3.141.0
+      - pytest==5.4.3
+      - pytest-selenium==1.17.0
+      virtualenv: "{{ selenium_venv }}"
+      virtualenv_command: /usr/bin/python{{ python_base_version }} -m venv
+
+  - name: Copy test files
+    copy:
+      src: selenium-tests
+      dest: "${HOME}/tests"
+
+  - name: Start AiiDA Lab server
+    shell: /usr/local/bin/aiida-aiidalab {{ aiidalab_jupyter_port }} &
+
+  - name: "Ensure server port opened: {{ aiidalab_jupyter_port }}"
+    wait_for:
+      port: "{{ aiidalab_jupyter_port }}"
+      timeout: 10
+
+  - name: Run pytest
+    shell: "{{ selenium_venv }}/bin/python -m pytest ${HOME}/tests --driver Firefox --driver-path {{ gecko_path }}"
+    environment:
+      DISPLAY: ":99"
+      AIIDALAB_PORT: "{{ aiidalab_jupyter_port }}"
+      AIIDALAB_HOST: "localhost"
