@@ -5,7 +5,7 @@
   roles:
   - role: marvel-nccr.aiidalab
     vars:
-      vm_headless: false
+      vm_headless: false  # test creation of desktop shortcut
 
   post_tasks:
   - name: "run pip check for: {{ aiidalab_aiida_venv }}"
