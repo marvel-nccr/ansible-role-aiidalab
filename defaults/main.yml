@@ -54,26 +54,26 @@ aiidalab_apps:
   - pythreejs  # jupyter-threejs
   - fileupload
   - widget-periodictable
-# TODO this works but leaving commented until https://github.com/aiidalab/aiidalab-qe/pull/34
-# - name: quantum-espresso
-#   github_repo: aiidalab/aiidalab-qe
-#   version: v20.11.2
-#   requirements_aiida:
-#   - aiida-quantumespresso
-#   - aiidalab-widgets-base
-#   - ase
-#   - nglview # is this really needed, its imported in aiidalab/quantum-espresso/structures.py but not actually used?
-#   - ipython
-#   - ipywidgets
-#   - traitlets
-#   requirements_jupyter:
-#   # https://github.com/aiidalab/aiidalab-qe/blob/master/jupyter-config/nbconfig/notebook.d/aiidalab.json
-#   - bqplot
-#   - ipympl  # jupyter-matplotlib
-#   - nglview
-#   - pythreejs  # jupyter-threejs
-#   - fileupload
-#   - widget-periodictable
+
+- name: quantum-espresso
+  github_repo: aiidalab/aiidalab-qe
+  version: v20.12.0
+  requirements_aiida:
+  - aiida-quantumespresso
+  - aiidalab-widgets-base
+  - ase
+  - nglview # is this really needed, its imported in aiidalab/quantum-espresso/structures.py but not actually used?
+  - ipython
+  - ipywidgets
+  - traitlets
+  requirements_jupyter:
+  # https://github.com/aiidalab/aiidalab-qe/blob/master/jupyter-config/nbconfig/notebook.d/aiidalab.json
+  - bqplot
+  - ipympl  # jupyter-matplotlib
+  - nglview
+  - pythreejs  # jupyter-threejs
+  - fileupload
+  - widget-periodictable
 
 root_user: root
 # add vm_headless=false to add a destop shortcut to start jupyter lab
