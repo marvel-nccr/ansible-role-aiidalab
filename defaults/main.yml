@@ -15,7 +15,7 @@ aiidalab_jupyter_port: 8888
 aiidalab_apps:
 - name: home
   github_repo: aiidalab/aiidalab-home
-  version: v20.11.0
+  version: v21.02.0
   requirements_aiida:
   # https://github.com/aiidalab/aiidalab-home/issues/51
   - aiidalab==20.11.0b1
@@ -27,7 +27,7 @@ aiidalab_apps:
 
 - name: aiidalab-widgets-base
   github_repo: aiidalab/aiidalab-widgets-base
-  version: v1.0.0b14
+  version: v1.0.0b15
   requirements_aiida:
   # https://github.com/aiidalab/aiidalab-widgets-base/blob/v1.0.0b14/metadata.json
   - aiida-core>=1.0.0,<2.0.0
