@@ -33,5 +33,6 @@ provisioner:
         vars:
           ansible_python_interpreter: /usr/bin/python3
           # for testing in docker container
+          jupyter_ip: "0.0.0.0"
           aiida_jupyter_extra_args: "--allow-root"
           aiidalab_jupyter_extra_args: "--allow-root"

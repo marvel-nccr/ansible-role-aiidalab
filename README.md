@@ -46,6 +46,8 @@ See `defaults/main.yml`
       aiidalab_jupyter_venv: "{{ aiida_jupyter_venv }}"
 ```
 
+Note: When building a Docker container, the variable `jupyter_ip: "0.0.0.0"` should be set, for `aiida-aiidalab` to correctly expose the port.
+
 ## Development and testing
 
 This role uses [Molecule](https://molecule.readthedocs.io/en/latest/#) and [Docker](https://www.docker.com/) for tests.
