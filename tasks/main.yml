@@ -32,6 +32,10 @@
   shell: "{{ aiidalab_jupyter_venv }}/bin/jupyter lab build --minimize=False"
   changed_when: false
 
+- name: Clean Jupyter Lab build staging  # see https://jupyterlab.readthedocs.io/en/latest/user/directories.html#jupyterlab-build-process
+  shell: "{{ aiidalab_jupyter_venv }}/bin/jupyter lab clean"
+  changed_when: false
+
 - name: Add AiiDA Lab launcher script
   become: true
   become_user: "{{ root_user }}"
