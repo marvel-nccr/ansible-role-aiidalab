@@ -10,6 +10,18 @@
   loop_control:
     loop_var: app
 
+- name: Document AiiDAlab apps
+  when: release_notes is defined and release_notes
+  include_role:
+    name: release_notes
+  vars:
+    section: "AiiDAlab Apps"
+    option: "{{ app.name }}"
+    value: "{{ app.version }}"
+  loop: "{{ aiidalab_apps }}"
+  loop_control:
+    loop_var: app
+
 # TODO despite the unique filter, pip may still fail if two apps set slightly different qualifiers, e.g.
 # ERROR: Double requirement given: wheel==0.35.1 (from -r test.txt (line 2)) (already in wheel>=0.35.0 (from -r test.txt (line 1)), name='wheel')
 
