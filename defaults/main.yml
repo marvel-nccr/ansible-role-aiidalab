@@ -18,7 +18,7 @@ aiidalab_apps:
   version: v21.02.0
   requirements_aiida:
   # https://github.com/aiidalab/aiidalab-home/issues/51
-  - aiidalab~=21.04.1
+  - aiidalab~=21.4.1
   - ipython
   - ipywidgets
   - jinja2
