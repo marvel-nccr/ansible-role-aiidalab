@@ -35,6 +35,7 @@
         folder: "/usr/bin"
         executable: "pw.x"
         plugin: quantumespresso.pw
+        version: v6.0
       aiida_pseudopotentials:
       - name: SSSP_1.1_efficiency
         file: SSSP_efficiency_pseudos.aiida
