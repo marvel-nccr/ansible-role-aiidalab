@@ -18,7 +18,7 @@ aiidalab_apps:
   version: v21.02.0
   requirements_aiida:
   # https://github.com/aiidalab/aiidalab-home/issues/51
-  - aiidalab==20.11.0b1
+  - aiidalab~=21.4.1
   - ipython
   - ipywidgets
   - jinja2
@@ -50,6 +50,7 @@ aiidalab_apps:
   # but it includes the same structure viewer as quantum-espresso
   - bqplot
   - ipympl # jupyter-matplotlib
+  - ipywidgets-extended  # a requirement of optimade-client
   - nglview
   - pythreejs  # jupyter-threejs
   - fileupload
