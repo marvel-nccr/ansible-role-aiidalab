@@ -20,6 +20,14 @@
   shell: "{{ aiidalab_jupyter_venv }}/bin/jupyter nbextension enable --sys-prefix --py appmode"
   changed_when: false
 
+# note this originates from "{{ aiidalab_jupyter_venv }}/lib/python{{ aiida_python_version | default('3.7') }}/site-packages/appmode/static/gears.svg"
+# but replacing it there, after pip install, was too late
+# the other approach would be to clone the appmode repo, replace the file, then install
+- name: "Replace appmode gears.svg"
+  copy:
+    src: aiidalab_gears.svg
+    dest: "{{ aiidalab_jupyter_venv }}/share/jupyter/nbextensions/appmode/gears.svg"
+
 - name: Enable app mode serverextension
   shell: "{{ aiidalab_jupyter_venv }}/bin/jupyter serverextension enable --sys-prefix --py appmode"
   changed_when: false

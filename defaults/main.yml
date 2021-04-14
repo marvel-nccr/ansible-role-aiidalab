@@ -70,6 +70,7 @@ aiidalab_apps:
   # https://github.com/aiidalab/aiidalab-qe/blob/master/jupyter-config/nbconfig/notebook.d/aiidalab.json
   - bqplot
   - ipympl  # jupyter-matplotlib
+  - ipywidgets-extended  # note this is not in the current requirements
   - nglview
   - pythreejs  # jupyter-threejs
   - fileupload
