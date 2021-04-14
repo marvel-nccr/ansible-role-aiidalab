@@ -44,3 +44,10 @@
         description: >-
           Standard Solid State Pseudopotentials (efficiency)
           for the PBE functional
+      - name: SSSP_1.1_precision
+        file: SSSP_precision_pseudos.aiida
+        url: https://archive.materialscloud.org/record/file?record_id=22&file_id=a5278c7d-356e-40a7-8ca0-a7eaf0b63a9d&filename=SSSP_precision_pseudos.aiida
+        home_page: https://materialscloud.org/sssp/
+        description: >-
+          Standard Solid State Pseudopotentials (precision)
+          for the PBE functional
