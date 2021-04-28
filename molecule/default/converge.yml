@@ -15,3 +15,7 @@
   - name: "run pip check for: {{ aiidalab_jupyter_venv }}"
     command: "{{ aiidalab_jupyter_venv }}/bin/pip check --no-color"
     changed_when: false
+
+  - name: test pymatgen import
+    command: "{{ aiidalab_aiida_venv }}/bin/python -c 'import pymatgen'"
+    changed_when: false
