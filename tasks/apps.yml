@@ -27,7 +27,7 @@
 
 - name: install server-side (aiida) dependencies
   pip:
-    name: "{{ aiidalab_apps | rejectattr('requirements_aiida', 'undefined') | map(attribute='requirements_aiida') | flatten | sort | unique }}"
+    name: "{{ aiidalab_apps_folder }}/{{ app.name }}"
     virtualenv: "{{ aiidalab_aiida_venv }}"
     extra_args: "-c {{ aiidalab_aiida_venv_constraints }}"
 
