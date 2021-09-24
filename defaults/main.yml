@@ -15,33 +15,11 @@ aiidalab_jupyter_port: 8888
 aiidalab_apps:
 - name: home
   github_repo: aiidalab/aiidalab-home
-  version: v21.02.0
-  requirements_aiida:
-  # https://github.com/aiidalab/aiidalab-home/issues/51
-  - aiidalab~=21.4.1
-  - ipython
-  - ipywidgets
-  - jinja2
-  - markdown
-  - traitlets
+  version: v21.09.0
 
 - name: aiidalab-widgets-base
   github_repo: aiidalab/aiidalab-widgets-base
-  version: v1.0.0b15
-  requirements_aiida:
-  # https://github.com/aiidalab/aiidalab-widgets-base/blob/v1.0.0b14/metadata.json
-  - aiida-core>=1.0.0,<2.0.0
-  - aiidalab-widgets-base
-  - ase
-  - bokeh
-  - fileupload
-  - ipywidgets
-  - more-itertools
-  - nglview
-  - numpy
-  - optimade-client
-  - pandas
-  - scikit-learn
+  version: v1.0.0rc4
   # these are optional for SMILES, but they cannot be installed via pip
   # - openbabel
   # - rdkit
@@ -58,15 +36,7 @@ aiidalab_apps:
 
 - name: quantum-espresso
   github_repo: aiidalab/aiidalab-qe
-  version: v20.12.0
-  requirements_aiida:
-  - aiida-quantumespresso
-  - aiidalab-widgets-base
-  - ase
-  - nglview # is this really needed, its imported in aiidalab/quantum-espresso/structures.py but not actually used?
-  - ipython
-  - ipywidgets
-  - traitlets
+  version: v21.08.0b4
   requirements_jupyter:
   # https://github.com/aiidalab/aiidalab-qe/blob/master/jupyter-config/nbconfig/notebook.d/aiidalab.json
   - bqplot
